@@ -1,0 +1,135 @@
+* {
+    box-sizing: border-box;
+    /*ブラウザ初期設定の余白を消す。横スクロールを封じる*/
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    touch-action: manipulation;
+}
+
+.btn, .song-item, .gene-item, .miniplayer {
+    -webkit-tap-highlight-color: transparent; /* タップした時のブラウザ標準の青い枠を消す */
+    user-select: none; /* 長押しでテキスト選択されないようにする */
+}
+
+body {
+    background-color: #0f0f0f;
+    color: #ffffff;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    overflow: hidden;
+
+    height: 100dvh;
+    width: 100dvw;
+}
+
+.error {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    background: none;
+    border: none;
+    color: #ff0000;
+
+    font-size: 30px;
+    z-index: 15;
+}
+
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: #121212;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;/*このクラスを付与、除去することでスクリーンを表示するかしないかを決める。*/
+}
+
+.player-container {/*ボタンの枠確保*/
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    background-color: #1a1a1a;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+
+    height: 100px;
+    width: 100dvw;
+    z-index: 5;
+}
+
+.controls {/*ボタンの配置*/
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    height: 100%;
+    width: 96%;
+    gap: 30px;
+}
+
+.btn {/*各ボタンの枠デザイン*/
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    
+    width: 3rem; 
+    height: 3rem;
+    border: 2px solid #565656;
+    border-radius: 50%;
+}
+
+
+
+.lucide {/*各ボタン自体のデザイン*/
+    stroke: #d3cdcd;
+    stroke-width: 2;
+    display: block;/*文字扱いさせない*/
+
+    width: 85%;
+    height: 85%;
+}
+
+
+.btn-back {
+    position: absolute;/*親はscreen*/
+    top: 0px;
+    left: 0px;
+
+    background: none;/*背景色なし*/
+    border: none;/*枠なし*/
+    color: #db3939;/*文字だけ*/
+    cursor: pointer;
+
+    font-size: 26px;
+    z-index: 10;
+}
+
+.btn:active {
+    filter: brightness(0.7); 
+    transform: scale(0.95); 
+    border: 2px solid #4c4c4c;
+}
+
+/*選択中の緑枠*/
+.song-item.selected,
+.gene-item.selected {
+    border-color: #1DB954;
+    background: #2a2a2a;
+    transform: scale(1.02);
+}

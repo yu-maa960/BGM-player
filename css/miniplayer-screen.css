@@ -1,0 +1,26 @@
+.miniplayer{
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+
+    pointer-events: auto;
+    background: none;
+    -webkit-user-drag: none; 
+    touch-action: none;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+
+    height: 70px;
+    width: 70px;
+    z-index: 15;
+}
+
+.miniplayer img{
+    cursor: pointer;
+    object-fit: cover;
+    
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    border-radius: 20px;
+    border: 2px solid #888;
+}

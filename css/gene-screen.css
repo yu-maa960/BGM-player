@@ -1,0 +1,59 @@
+.screen.gene-screen {
+    z-index: 1;
+}
+
+.gene-list {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    scroll-snap-type: y proximity;
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+
+    height:100%;
+    min-height: 0;
+    width: 100%;
+    gap: 15px;
+    padding-bottom: calc(100dvh - 95px);/*最後の世代を先頭に運べるよう、ダミーを作る。ミニジャケットの50px + 上下padding15px + 上gap15px = 95*/
+    
+}
+
+.gene-item {
+    scroll-snap-align: start;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #1e1e1e;
+    cursor: pointer;
+    transition: all 0.08s;
+
+    width: 96%;
+    padding: 15px;
+    border-radius: 20px;
+    border: 2px solid #888;/*2px分の厚みを描いておくことで、ここが選択した時に色が変わる*/
+}
+
+.gene-thumbnail {
+    object-fit: cover;
+
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    margin-right: 20px;
+}
+
+.genetext {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+
+    font-size: 20px;
+}
