@@ -50,3 +50,6 @@ music1=戦闘BGM
 ### 開発者
 * **Name**: Yuma Yoshimura(yu-maa960)
 * **GitHub**: [yu-maa960](https://github.com/yu-maa960)
+
+### ライセンス
+Copyright (c) 2026 Yuma Yoshimura This project is licensed under the MIT License.
