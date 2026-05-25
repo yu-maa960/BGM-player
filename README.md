@@ -36,12 +36,12 @@ music-web/
         ├── music2.jpg
         └── category_name_jacket.jpg (フォルダ共通ジャケット，フォルダと同じ名前)
 ```
-#### 3. `titles.txt`の編集
+#### 3. `titles.txt`をルートディレクトリに作製．編集(任意)
 ```text
 category_name=ポケモン
 music1=戦闘BGM
 ```
-#### 4. `make_playlist.py`の実行
+#### 4. 空の`player.json`をルートディレクトリに作り，`make_playlist.py`の実行
 #### 5. GitHubにて空のリポジトリを**`private`**で作成し，フォルダを丸ごと`push`
 #### 6. Vercelと連携して`Deploy`
 
