@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pokemon BGM</title>
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/gene_screen.css">
+        <link rel="stylesheet" href="css/list_screen.css">
+        <link rel="stylesheet" href="css/player_screen.css">
+        <link rel="stylesheet" href="css/miniplayer_screen.css">
+        <script src="https://unpkg.com//lucide@latest"></script>
+    </head>
+    <body>
+        <!--エラー表示-->>
+        <div id="error_area" class="error"></div>
+        <!--1枚目のスクリーン-->>
+        <div id="gene_screen" class="screen gene_screen">
+            <div id="gene_list" class="gene_list"></div>    <!--divの必要性ある？-->
+            <div class="player_container">
+                <div class="controls">
+                    <button class="btn" onclick="geneMoveCursor(-1)">   <!--geneの必要ある？統一できない？-->
+                        <i data-lucide="chevron-up"></i>
+                    </button>
+                    <button class="btn" onclick="decideGene()">
+                        <i data-lucide="check"></i>
+                    </button>
+                    <button class="btn" onclick="geneMoveCursor(1)">
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--2枚目のスクリーン-->
+        <div id="list_screen" class="screen list_screen hidden">
+            <button class="btn_back" onclick="closeList()">
+                ▼ メニューに戻る
+            </button>
+            <div class="gen_header">
+                <img id="selected_gen_jacket" src="" alt="Generation" onerror="this.style.display='none'">
+            </div>
+            <div id="song_list" class="song_list">
+                <div id="song_item" class="song_item"></div>
+            </div>
+            <div class="player_container">
+                <div class=""controls>
+                    <button class="btn" onclick="moveCursor(-1)">
+                        <i data-lucide="chevron-up"></i>
+                    </button>
+                    <button class="btn" onclick="decideSong()">
+                        <i data-lucide="play"></i>
+                    </button>
+                    <button class="btn" onclick="moveCursor(1)">
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--3枚目のスクリーン-->
+        <div id="player_screen" class="screen player_screen hidden">
+            <button class="btn_back" onclick="closePlayer()">
+                ▼ リストに戻る
+            </button>
+            <div class="playing_now">
+                <img id="selected_music_jacket" class="player_main_jacket" src="">
+                <p id="current_title" class="current_title">
+                    曲名
+                </p>
+                <div class="seekbar">
+                    <input type="range" id="seekbar" value="0" step="0.1" oninput="seek(this.value)">
+                </div>
+            </div>
+            <div class="player_container">
+                <div class="controls">
+                    <button class="btn" onclick="skip(-10)">
+                        <i data-lucide="skip-back"></i>
+                    </button>
+                    <button id="play_pause_btn" class="btn" onclick="togglePlay()">
+                        <i data-lucide="play" class="icon-play"></i>
+                        <i data-lucide="pause" class="icon-pouse" style="display : none"></i>
+                    </button>
+                    <button class="btn" onclick="skip(10)">
+                        <i data-lucide="skip-forward"></i>
+                    </button>
+                    <button id="loop_id" class="btn" onclick="toggleLoop()">
+                        <i data-lucide="repeat"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--4枚目のミニスクリーン-->
+        <div id="mini_player" class="mini_player hidden">
+            <img id="mini_img" class="mini_img" src="" onerror="this.style.display='none'">
+        </div>
+        <script src="js/lucide.min.js"></script>
+        <script src="js/script.js"></script>
+    </body>
+</html>
