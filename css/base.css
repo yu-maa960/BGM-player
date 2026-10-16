@@ -1,0 +1,120 @@
+html, body {
+    touch-action: manipulation;
+}
+
+body {
+    background-color: #0f0f0f;
+    font-family:        'Helvetica Neue', Arial, sans-serif;
+    /*overflow: hidden;
+*/
+    height: 100dvh;
+    width:  100dvw;
+}
+
+:root {
+    --z-error:         20;
+    --z-miniplayer:    15;
+    --z-btn_back:      10;
+    --z-btn:           5;
+    --z-player_screen: 4;
+    --z-gen_header:    3;
+    --z-list_screen:   2;
+    --z-gene_screen:   1;
+    --z-player_hide:   0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.error {
+    position: fixed;
+    top:   0;
+    right: 0;
+
+    background: none;
+    border:     none;
+    color:    #ff0000;
+
+    font-size: 2rem;
+    z-index: var(--z-error);
+}
+
+.screen {
+    position: fixed;
+    top:  0;
+    left: 0;
+
+    /*overflow: hidden*/
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+
+    width:  100%;
+    height: 100%;
+}
+
+.btn_container {
+    position: fixed;
+    bottom: 0;
+    left:   0;
+
+    background-color: #1a1a1a;
+
+    display:         flex;
+    flex-direction:  row;
+    justify-content: space-around;
+    align-items:     center;
+
+    height: 100px;
+    width:  100dvw;
+    z-index: var(--z-btn);
+}
+
+.btn {
+    background: none;
+    border:     none;
+    cursor:     pointer;
+
+    width:  3rem;
+    height: 3rem;
+    border: 2px solid #565656;
+    border-radius: 50%;
+}
+
+.btn_back {
+    position: fixed;
+    top:  0px;
+    left: 0px;
+
+    background: none;
+    border:     none;
+    color:    #2293d4;
+    cursor:     pointer;
+
+    font-size: 1.5rem;  /*24px相当*/
+    z-index: var(--z-btn_back);
+}
+
+/*: 押している時*/
+.btn:active {
+    filter: brightness(0.7);
+    transform: scale(0.9);
+    border: 2px solid #464646;
+}
+
+.lucide {
+    stroke:     #d3cdcd;
+    stroke-width: 2;
+    display:      block;
+
+    width:  85%;
+    height: 85%;
+}
+
+.song_item.selected,
+.gene_item.selected {
+    border-color: #1DB954;
+    background:   #3a3a3a;
+    transform: scale(1.02);
+}

@@ -1,0 +1,83 @@
+.list_screen {
+    z-index: val(--z-list_screen);
+}
+
+.gen_header {
+    position: fixed;
+    top:  2rem;  /*戻るボタン用の隙間(1.5rem)*/
+    left: 0;
+
+    width:  100%;
+    height: 30dvh;
+    z-index: val(--z-gen_header);
+}
+
+.selected_gen_jacket {
+    object-fit: cover;
+
+    width:  100%;
+    height: 100%;
+}
+
+.song_list {
+    overflow-y:       scroll;
+    /*-webkit-overflow-scrolling: touch;*/
+    touch-action:     pan-y;
+    scroll-snap-type: y proximity;
+    scroll-padding-top: calc(30dvh + 15px);  /*gen_headerの直下*/
+
+    position: fixed;
+    top:  2rem; /*戻るボタン用の隙間*/
+    left: 0;
+
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+
+    gap:   15px;
+    width: 100%;
+    height: calc(100dvh - 2rem);
+    padding-top: calc(30dvh + 15px);
+    padding-top: calc(100dvh - 90px);   /*ボタンエリアは100px，ちょっと被るように*/
+}
+
+.song_item {
+    scroll-snap-align: start;
+    cursor:            pointer;
+    transition:        all 0.08s;
+
+    display:        flex;
+    flex-direction: row;
+    align-items:    center;
+
+    background: #1e1e1e;
+
+    width:   96%;
+    padding: 15px;
+    border:  2px solid #888;
+    border-radius: 20px;
+}
+
+.list_thumbnail {
+    object-fit: cover;
+
+    width:  50px;
+    height: 50px;
+    border-radius: 4px;
+    margin-right:  20px;
+}
+
+.song_info {
+    display:        flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.title_text {
+    overflow:      hidden;
+    white-space:   nowrap;
+    text-overflow: ellipsis;
+
+    font-weight: bold;
+    font-size: 1.25rem;
+}
