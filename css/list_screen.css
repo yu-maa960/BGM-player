@@ -81,3 +81,10 @@
     font-weight: bold;
     font-size: 1.25rem;
 }
+
+.gen_text {
+    color: #888;
+
+    font-size: 1rem;
+    margin-top: 4px;
+}
