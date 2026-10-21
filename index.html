@@ -19,7 +19,7 @@
             <div id="gene_list" class="gene_list"></div>    <!--divの必要性ある？-->
             <div class="btn_container">
                 
-                <button class="btn" onclick="geneMoveCursor(-1)">   <!--geneの必要ある？統一できない？-->
+                <button class="btn" onclick="geneMoveCursor(-1)"> 
                     <i data-lucide="chevron-up"></i>
                 </button>
                 <button class="btn" onclick="decideGene()">
@@ -78,13 +78,13 @@
                     <i data-lucide="skip-back"></i>
                 </button>
                 <button id="play_pause_btn" class="btn" onclick="togglePlay()">
-                    <i data-lucide="play" class="icon-play"></i>
-                    <i data-lucide="pause" class="icon-pouse" style="display : none"></i>
+                    <i data-lucide="play" id="icon_play"></i>
+                    <i data-lucide="pause" id="icon_pouse" style="display : none"></i>
                 </button>
                 <button class="btn" onclick="skip(10)">
                     <i data-lucide="skip-forward"></i>
                 </button>
-                <button id="loop_id" class="btn" onclick="toggleLoop()">
+                <button id="loop_btn" class="btn" onclick="toggleLoop()">
                     <i data-lucide="repeat"></i>
                 </button>
                 

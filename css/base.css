@@ -102,7 +102,7 @@ body {
     transform: scale(0.9);
     border: 2px solid #464646;
 }
-
+/*いらなくないか？
 .lucide {
     stroke:     #d3cdcd;
     stroke-width: 2;
@@ -111,7 +111,7 @@ body {
     width:  85%;
     height: 85%;
 }
-
+*/
 .song_item.selected,
 .gene_item.selected {
     border-color: #1DB954;

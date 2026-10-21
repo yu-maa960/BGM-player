@@ -1,4 +1,4 @@
-.miniplayer {
+.mini_player {
     position: fixed;
     bottom: 110px;  /*btn_containerが100pxなので，ちょっと上*/
     right:  20px;
