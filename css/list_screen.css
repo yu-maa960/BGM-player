@@ -1,5 +1,5 @@
 .list_screen {
-    z-index: val(--z-list_screen);
+    z-index: var(--z-list_screen);
 }
 
 .gen_header {
@@ -7,21 +7,26 @@
     top:  2rem;  /*戻るボタン用の隙間(1.5rem)*/
     left: 0;
 
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+
     width:  100%;
     height: 30dvh;
-    z-index: val(--z-gen_header);
+    z-index: var(--z-gen_header);
 }
 
 .selected_gen_jacket {
     object-fit: cover;
 
-    width:  100%;
+    width:  98%;
     height: 100%;
+    border: 8px solid #294A78;
+    border-radius: 20px;
 }
 
 .song_list {
     overflow-y:       scroll;
-    /*-webkit-overflow-scrolling: touch;*/
     touch-action:     pan-y;
     scroll-snap-type: y proximity;
     scroll-padding-top: calc(30dvh + 15px);  /*gen_headerの直下*/
@@ -38,7 +43,7 @@
     width: 100%;
     height: calc(100dvh - 2rem);
     padding-top: calc(30dvh + 15px);
-    padding-top: calc(100dvh - 90px);   /*ボタンエリアは100px，ちょっと被るように*/
+    padding-bottom: calc(100dvh - (2rem + 30dvh + 15px));   /*最後の曲を先頭に運べるよう、ダミーを作る。*/
 }
 
 .song_item {
@@ -52,7 +57,7 @@
 
     background: #1e1e1e;
 
-    width:   96%;
+    width:   87%;
     padding: 15px;
     border:  2px solid #888;
     border-radius: 20px;
@@ -77,6 +82,8 @@
     overflow:      hidden;
     white-space:   nowrap;
     text-overflow: ellipsis;
+
+    color: #888;
 
     font-weight: bold;
     font-size: 1.25rem;

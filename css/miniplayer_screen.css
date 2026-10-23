@@ -1,16 +1,15 @@
 .mini_player {
     position: fixed;
-    bottom: 110px;  /*btn_containerが100pxなので，ちょっと上*/
+    bottom: calc(100px + 2rem + 20px);  /*rightsideボタンのスペース+10px*/
     right:  20px;
 
     pointer-events: auto;
     background:     none;
     touch-action:   none;
-    /*-webkit-user-drag: none*/ /*長押しで画像コピー等を防ぐ？*/
 
     width:  70px;
     height: 70px;
-    z-index: val(--z-miniplayer);
+    z-index: var(--z-miniplayer);
 }
 
 .mini_img {

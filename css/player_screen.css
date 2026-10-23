@@ -1,5 +1,5 @@
 .player_screen {
-    z-index: val(--z-player_screen);
+    z-index: var(--z-player_screen);
 }
 
 .playing_now {
@@ -17,14 +17,12 @@
 }
 
 .player_main_jacket {
-    /*display: block;*/
-
     object-fit: cover;
     flex-shrink: 0;
 
-    width:  95%;
-    height: 55%;
-    border: 10px solid #294A78;
+    width:  98%;
+    height: 30%;
+    border: 8px solid #294A78;
     border-radius: 20px;
 }
 
@@ -33,6 +31,8 @@
     white-space:   nowrap;
     text-overflow: ellipsis;
     text-align:    center;
+
+    color: #b1a8a8;
     
     font-weight: bold;
     font-size: 2rem;
@@ -46,15 +46,16 @@
     margin:  0 30px;
     padding: 5px 10px;
     border-radius: 10px;
+
+    transform: translateY(30dvh);   /*下のボタンの近くに*/
 }
 
 input[type="range"] {
     width: 100%;
     height: 12px;
-    accent-color: #294A78;
+    accent-color: #1DB954;
 }
 
-/*. 両方のクラスを持つ*/
 .btn.active {
     color: #1DB954;
     transform: scale(1.1);
@@ -68,6 +69,6 @@ input[type="range"] {
 }
 
 .player_screen.player_standby {
-    z-index: val(--z-player-hide);
+    z-index: var(--z-player-hide);
 }
 

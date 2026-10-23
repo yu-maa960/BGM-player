@@ -4,7 +4,7 @@ let Screen;
 
 let geneList;
 let geneItems;
-let geneCursorIndex = 0;    //ボタン操作，タッチ操作，UXのため
+let geneCursorIndex = 0;
 let songList;
 let songItems;
 
@@ -17,6 +17,8 @@ let pauseIcon;
 
 let startX;
 let startY;
+let offsetX;
+let offsetY;
 
 let isAutoScrolling = false;
 let isDragging = false;
@@ -25,17 +27,13 @@ let isPlaying = false;
 let scrollTimeout;
 let errorTimer = null;
 
-//jsonにgeneration,geneTitleは必須．
-//代表世代画像必須,jpg
-// jsonには，各曲ごとに配列でgeneration,geneTitle,Titlr,imagePath,filePath
 
-//currentCursorの更新
-//songItem個々のimgpathはいるのか，その他も．各Item自身に持たせる必要性
+
 fetch('../player.json')
     .then(response => response.json())
     .then(songs => {
         const seenGen = new Set();  //重複なし世代登録
-        const representative_song = {}; //各世代の代表曲1つ用マップ
+        const representative_song = []; //各世代の代表曲1つ用マップ
 
         songs.forEach(song => {
             if (!seenGen.has(song.generation)) {
@@ -65,7 +63,7 @@ fetch('../player.json')
             mini: document.getElementById('mini_player')
         }
     })
-    .catch(error => console.error("Fatal Error"));
+    .catch(error => console.error("Fatal Error:", error));
 
 function initGeneScreen(generations) {
     geneList = document.getElementById('gene_list');
@@ -74,8 +72,8 @@ function initGeneScreen(generations) {
         const geneItem = document.createElement('div');
         geneItem.className = 'gene_item';
         geneItem.id = `gene_item_${geneIndex}`;
-        geneItem.dataset.index = geneIndex; //必要
-        geneItem.dataset.gen = gene.generation; //必要
+        geneItem.dataset.index = geneIndex;
+        geneItem.dataset.gen = gene.generation;
 
         const img = document.createElement('img');
         img.className = 'gene_thumbnail';
@@ -104,12 +102,12 @@ function initSongScreen(songs) {
         songItem.className = 'song_item';
         songItem.id = `song_item_${startIndex}`;
 
+        //以下5つ全部使用
         songItem.dataset.index = startIndex;
         songItem.dataset.file = song.filePath;
         songItem.dataset.title = song.title;
         songItem.dataset.img = song.imagePath;
         songItem.dataset.gen = song.generation;
-        //songItem.dataset.geneName = song.geneTitle;
 
         const img = document.createElement('img');
         img.className = 'list_thumbnail';
@@ -135,7 +133,7 @@ function initSongScreen(songs) {
         songList.appendChild(songItem);
     });
 
-    songList.addEventListener('scroll', TapCursor, {passive: true});
+    songList.addEventListener('scroll', tapCursor, {passive: true});
     songList.addEventListener('click', selectAndPlay);
 
     songItems = document.querySelectorAll('.song_item');
@@ -157,7 +155,7 @@ function selectAndPlay(event) {
         return;
     }
     const uIndex = Number(item.dataset.index);   //固有index
-    const vIndex = visibleSongs.findIndex(element => element.dataset.index === String(uindex)); //リスト上のindex
+    const vIndex = visibleSongs.findIndex(element => element.dataset.index === String(uIndex)); //リスト上のindex
     if (vIndex < visibleSongs.length) {
         visibleCursorIndex = vIndex;
         uniqueIndex = uIndex;
@@ -172,8 +170,10 @@ function handleMiniDown(event) {
     isDragging = true;
 
     const rect = Screen.mini.getBoundingClientRect();
-    startX = event.clientX - rect.right;    //掴んだ位置
-    startY = event.clientY - rect.bottom;
+    startX = event.clientX;
+    startY = event.clientY;
+    offsetX = event.clientX - rect.right;    //掴んだ位置のオフセット
+    offsetY = event.clientY - rect.bottom;
 
     event.preventDefault();
 
@@ -189,8 +189,8 @@ function handleMiniDrag(event) {
     Screen.mini.style.bottom = 'auto';
     Screen.mini.style.right = 'auto';
 
-    Screen.mini.style.right = `${window.innerWidth - (event.clientX - startX)}px`;    //掴んだ位置からの距離でDragする，右端が0に注意
-    Screen.mini.style.bottom = `${window.innerHeight - (event.clientY - startY)}px`;
+    Screen.mini.style.right = `${window.innerWidth - (event.clientX - offsetX)}px`;    //掴んだ位置からの距離でDragする．右端が0に注意(軸が逆向き)
+    Screen.mini.style.bottom = `${window.innerHeight - (event.clientY - offsetY)}px`;
 }
 
 function handleMiniDragEnd(event) {
@@ -201,30 +201,29 @@ function handleMiniDragEnd(event) {
     const diffX = Math.abs(event.clientX - startX);
     const diffY = Math.abs(event.clientY - startY);
 
+
     //タッチ処理
-    if (diffX < 20 && diffY < 20) {
+    if (diffX < 10 && diffY < 10) {
         switchScreen('player');
         return;
     }
+
+    const margin = 70;  //miniのサイズ
+    const rect = Screen.mini.getBoundingClientRect();
 
     Screen.mini.style.transition = 'all 0.7s';
     Screen.mini.style.left = 'auto';
     Screen.mini.style.right = '20px';
 
-    const margin = 70;  //miniのサイズ
-    const rect = Screen.mini.getBoundingClientRect();
-
     if (rect.top < margin) {
-        Screen.mini.style.top = `${margin}px`;
-        Screen.mini.style.bottom = 'auto';
+        Screen.mini.style.bottom = `${window.innerHeight - 2 * margin}px`;  //上端をmarginに合わせたい
     } else if (rect.bottom > window.innerHeight - margin) {
-        Screen.mini.style.top = 'auto';
         Screen.mini.style.bottom = `${margin}px`;
     }
 }
 
 //ボタン操作
-function geneMoveCoursor(direction) {
+function geneMoveCursor(direction) {
     if (geneItems.length === 0) {
         return;
     }
@@ -243,7 +242,7 @@ function geneMoveCoursor(direction) {
     isAutoScrolling = true;
     const target = document.getElementById('gene_item_' + geneCursorIndex);
     if (target) {
-        const gatePostion = document.getElementById('gene_item_0').offsetTop;  //代表
+        const gatePosition = document.getElementById('gene_item_0').offsetTop;  //代表
         geneList.scrollTo({
             top: target.offsetTop - gatePosition,
             behavior: 'smooth'
@@ -265,7 +264,7 @@ function geneTapCursor() {
         return;
     }
 
-    if (geneItemsms.length === 0) {
+    if (geneItems.length === 0) {
         showError('Any folder not found');
         return;
     }
@@ -361,7 +360,7 @@ function tapCursor() {
 
     const targetElement = visibleSongs[visibleCursorIndex];
     uniqueIndex = Number(targetElement.dataset.index);
-    UpdateVisual(uniqueIndex);
+    updateVisual(uniqueIndex);
 }
 
 function decideGene() { //タッチでも直接呼び出せるように，仮引数無し
@@ -371,7 +370,6 @@ function decideGene() { //タッチでも直接呼び出せるように，仮引
 
     const newSrc = `/images/${gen}/${gen}_jacket.jpg`;
     headerImg.src = newSrc;
-    headerImg.style.display = 'block';  //一応
 
     let existing = false;
     songItems.forEach(songItem => {
@@ -392,9 +390,8 @@ function decideGene() { //タッチでも直接呼び出せるように，仮引
     }
 
     switchScreen('list');
-    const gateOffset = window.innerHeight * 0.30 + 15;  //ジャケット直下
     songList.scrollTo({
-        top: visibleSongs[visibleCursorIndex].offsetTop - gateOffset,    //ジャケット直下が0になるようにする(合わせる)
+        top: 0,     //先頭に合わせる
         behavior: "smooth"
     });
     updateVisual(uniqueIndex);
@@ -402,7 +399,6 @@ function decideGene() { //タッチでも直接呼び出せるように，仮引
 
 function decideSong() {
     const target = document.getElementById('song_item_' + uniqueIndex);
-    visibleCursorIndex = visibleSongs.findIndex(element => element.dataset.index === target.dataset.index);
     if (target) {
         audio.src = target.dataset.file;
         audio.load();
@@ -443,9 +439,8 @@ function switchScreen(state) {
             Screen.list.classList.remove('hidden');
 
             Screen.player.classList.add('player_standby');  //逆走用
-            if (isPlaying) {    //だれ？
+            if (isPlaying) {
                 Screen.mini.classList.remove('hidden');
-                //Screen.mini.style.display = 'block';
             }
             break;
 
@@ -492,7 +487,7 @@ function closeList() {
     const target = document.getElementById('gene_item_' + geneCursorIndex);
     const gatePosition = document.getElementById('gene_item_0').offsetTop; //代表
     geneList.scrollTo({
-        top: target.offsetTop - gatePostion,
+        top: target.offsetTop - gatePosition,
         behavior: 'smooth'
     });
 
@@ -506,7 +501,7 @@ function closePlayer() {
 
     isAutoScrolling = true;
 
-    const gatePosition = document.getElementById('song_item_0');    //代表
+    const gatePosition = visibleSongs[0].offsetTop;    //代表
     songList.scrollTo({
         top: visibleSongs[visibleCursorIndex].offsetTop - gatePosition,
         behavior: 'smooth'
@@ -535,8 +530,8 @@ const toggleLoop = (() => {
         isLoop = !isLoop;
         audio.loop = isLoop;
 
-        const LiioBtn = document.getElementById('loop_btn');
-        liipBtn.classList.tpggle('active', isLoop);
+        const loopBtn = document.getElementById('loop_btn');
+        loopBtn.classList.toggle('active', isLoop);
     };
 })();
 

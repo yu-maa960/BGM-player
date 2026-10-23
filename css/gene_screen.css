@@ -1,31 +1,67 @@
 .gene_screen {
-    z-index: val(--z-gene_screen);
+    z-index: var(--z-gene_screen);
+}
+
+.app_title {
+    color:    #ddd;
+
+    font-size: 1.5rem;  /*24px相当*/
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.TITLE {
+    position: fixed;
+    top:  2rem;  /*他のスクリーンに合わせる*/
+    left: 0;
+
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+
+    width:  100%;
+    height: 30dvh;
+    z-index: var(--z-gene_header);
+}
+
+.TITLE_img {
+    object-fit: cover;
+    overflow: hidden;
+
+    width:  98%;
+    height: 100%;
+    border: 2px solid #555;
+    border-radius: 12px;
 }
 
 .gene_list {
     overflow-y: scroll;
-    /*-webkit-overflow-scrolling: touch;*/
     touch-action: pan-y;
     scroll-snap-type: y proximity;
+    scroll-padding-top: calc(2rem + 30dvh + 15px);  /*song_listに合わせる*/
 
     position: fixed;
-    top:  0;
+    top:  2rem; /*上に少し余白が欲しい．*/
     left: 0;
 
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    height: 100%;
+    height: calc(100% - 2rem);
     width:  100%;
     gap:    15px;
-    padding-bottom: calc(100dvh - 95px);/*最後の世代を先頭に運べるよう、ダミーを作る。ミニジャケットの50px + 上下padding15px + 上gap15px = 95*/
+    padding-top: calc(30dvh + 15px);
+    padding-bottom: calc(100dvh - (2rem + 30dvh + 15px));/*最後の世代を先頭に運べるよう、ダミーを作る。15pxはgap分*/
 }
+
 
 .gene_item {
     scroll-snap-align: start;
     cursor: pointer;
-    transition: all 0.08s;
+    transition: border-color 0.08s,
+                background-color 0.08s,
+                transform 0.15s;
 
     display: flex;
     flex-direction: row;
@@ -33,10 +69,10 @@
 
     background-color: #1e1e1e;
 
-    width: 96%;
+    width: 87%;
     padding: 15px;
     border: 2px solid #888; /*2px分の厚みを描いておくことで、ここが選択した時に色が変わる*/
-    border-radius: 20px;
+    border-radius: 8px;
 }
 
 .gene_thumbnail {
@@ -53,6 +89,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     
+    color: #888;
     font-weight: bold;
     font-size: 1.25rem;
 }

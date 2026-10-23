@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="css/list_screen.css">
         <link rel="stylesheet" href="css/player_screen.css">
         <link rel="stylesheet" href="css/miniplayer_screen.css">
+        <link rel="icon" href="data:,">
         <script src="https://unpkg.com//lucide@latest"></script>
     </head>
     <body>
@@ -16,7 +17,13 @@
         <div id="error_area" class="error"></div>
         <!--1枚目のスクリーン-->>
         <div id="gene_screen" class="screen gene_screen">
-            <div id="gene_list" class="gene_list"></div>    <!--divの必要性ある？-->
+            <h1 class="app_title">
+                Pokemon BGM
+            </h1>
+            <div class="TITLE">
+                <img class="TITLE_img" src="./images/TITLE/TITLE.jpg" alt="タイトル">
+            </div>
+            <div id="gene_list" class="gene_list"></div>
             <div class="btn_container">
                 
                 <button class="btn" onclick="geneMoveCursor(-1)"> 
@@ -38,11 +45,14 @@
                 ▼ メニューに戻る
             </button>
             <div class="gen_header">
-                <img id="selected_gen_jacket" class="selected_gen_jacket" src="" alt="Generation" onerror="this.style.display='none'">
+                <img id="selected_gen_jacket" class="selected_gen_jacket" src="" alt="Generation">
             </div>
             <div id="song_list" class="song_list">
                 <div id="song_item" class="song_item"></div>
             </div>
+            <button class="btn_back right_side" onclick="closeList()">
+                <i data-lucide="arrow-left"></i>
+            </button>
             <div class="btn_container">
                 
                 <button class="btn" onclick="moveCursor(-1)">
@@ -72,6 +82,9 @@
                     <input type="range" id="seekbar" value="0" step="0.1" oninput="seek(this.value)">
                 </div>
             </div>
+            <button class="btn_back right_side" onclick="closePlayer()">
+                <i data-lucide="arrow-left"></i>
+            </button>
             <div class="btn_container">
                 
                 <button class="btn" onclick="skip(-10)">
@@ -79,7 +92,7 @@
                 </button>
                 <button id="play_pause_btn" class="btn" onclick="togglePlay()">
                     <i data-lucide="play" id="icon_play"></i>
-                    <i data-lucide="pause" id="icon_pouse" style="display : none"></i>
+                    <i data-lucide="pause" id="icon_pause" style="display : none"></i>
                 </button>
                 <button class="btn" onclick="skip(10)">
                     <i data-lucide="skip-forward"></i>
@@ -93,7 +106,7 @@
 
         <!--4枚目のミニスクリーン-->
         <div id="mini_player" class="mini_player hidden">
-            <img id="mini_img" class="mini_img" src="" onerror="this.style.display='none'">
+            <img id="mini_img" class="mini_img" src="">
         </div>
         <script src="js/lucide.min.js"></script>
         <script src="js/script.js"></script>

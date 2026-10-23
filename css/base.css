@@ -1,3 +1,21 @@
+* {
+    box-sizing: border-box;
+    /*ブラウザ初期設定の余白を消す。横スクロールを封じる*/
+    margin: 0;
+    padding: 0;
+}
+
+/*iPhone想定．検索機能実装予定はなし*/
+* {
+    -webkit-user-select:   none;    /*safari向けのテキスト選択禁止*/
+    user-select:           none;    /*テキスト選択禁止*/
+    -webkit-touch-callout: none;    /*iPhone長押しメニュー禁止*/
+}
+
+img {
+    -webkit-user-drag: none;
+}
+
 html, body {
     touch-action: manipulation;
 }
@@ -5,20 +23,20 @@ html, body {
 body {
     background-color: #0f0f0f;
     font-family:        'Helvetica Neue', Arial, sans-serif;
-    /*overflow: hidden;
-*/
+    overflow: hidden;
     height: 100dvh;
     width:  100dvw;
 }
 
 :root {
-    --z-error:         20;
-    --z-miniplayer:    15;
-    --z-btn_back:      10;
-    --z-btn:           5;
-    --z-player_screen: 4;
-    --z-gen_header:    3;
-    --z-list_screen:   2;
+    --z-error:         25;
+    --z-miniplayer:    20;
+    --z-btn_back:      15;
+    --z-btn:           10;
+    --z-player_screen: 5;
+    --z-gen_header:    4;
+    --z-list_screen:   3;
+    --z-gene_header:   2;
     --z-gene_screen:   1;
     --z-player_hide:   0;
 }
@@ -45,7 +63,6 @@ body {
     top:  0;
     left: 0;
 
-    /*overflow: hidden*/
     display:        flex;
     flex-direction: column;
     align-items:    center;
@@ -68,6 +85,7 @@ body {
 
     height: 100px;
     width:  100dvw;
+    border-top: 1px solid #444;
     z-index: var(--z-btn);
 }
 
@@ -76,10 +94,11 @@ body {
     border:     none;
     cursor:     pointer;
 
-    width:  3rem;
+    color: #888;
+
+    width:  4rem;
     height: 3rem;
     border: 2px solid #565656;
-    border-radius: 50%;
 }
 
 .btn_back {
@@ -96,25 +115,30 @@ body {
     z-index: var(--z-btn_back);
 }
 
+.right_side {
+    /*ボタンエリアの真上*/ 
+    top: auto;  
+    left: auto;
+    right: 20px;
+    bottom: 100px;
+    padding: 10px;
+}
+
+.right_side svg {
+    width:  2rem;
+    height: 2rem;
+}
+
 /*: 押している時*/
 .btn:active {
     filter: brightness(0.7);
     transform: scale(0.9);
     border: 2px solid #464646;
 }
-/*いらなくないか？
-.lucide {
-    stroke:     #d3cdcd;
-    stroke-width: 2;
-    display:      block;
 
-    width:  85%;
-    height: 85%;
-}
-*/
 .song_item.selected,
 .gene_item.selected {
     border-color: #1DB954;
     background:   #3a3a3a;
-    transform: scale(1.02);
+    transform: scale(1.08);
 }

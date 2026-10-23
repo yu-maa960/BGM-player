@@ -28,7 +28,7 @@ if os.path.exists(MUSIC_DIR):
             gene_title = title_map.get(gen_folder, gen_folder)
 
             for file_name in sorted(os.listdir(gen_path)):
-                if file_name.endwith(".mp3"):   #mp3のみ
+                if file_name.endswith(".mp3"):   #mp3のみ
                     file_path = f"{MUSIC_DIR}/{gen_folder}/{file_name}"
                     base_name = file_name.replace(".mp3", "")
 
