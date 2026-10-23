@@ -49,11 +49,11 @@ fetch('../player.json')
         initSongScreen(songs);
         const miniImg = document.getElementById('mini_img');
         miniImg.addEventListener('pointerdown', handleMiniDown, {passive: false});
-        playIcon = document.getElementById('icon_play');
-        pauseIcon = document.getElementById('icon_pause');
         if (window.lucide) {
             lucide.createIcons();
         }
+        playIcon = document.getElementById('icon_play');
+        pauseIcon = document.getElementById('icon_pause');
         geneUpdateVisual(0);    //初期設定
 
         Screen = {
@@ -538,11 +538,11 @@ const toggleLoop = (() => {
 function updatePlayButton(playing) {
     isPlaying = playing;
     if (playing) {
-        playIcon.style.display = '';
-        pauseIcon.style.display = 'none';
-    } else {
         playIcon.style.display = 'none';
         pauseIcon.style.display = '';
+    } else {
+        playIcon.style.display = '';
+        pauseIcon.style.display = 'none';
     }
 }
 
